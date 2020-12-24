@@ -2,10 +2,7 @@ import pygame
 
 from config import HEIGHT, WIDTH
 from ball import Ball
-
-
-class EndGameException(Exception):
-    pass
+from Player import *
 
 
 class Game:
@@ -16,27 +13,27 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        self.player = None
+        self.player = Player(self.all_sprites)
         self.balls = Ball(10, 20, 100, self.all_sprites)
         self.blocks = []
-
-    def update(self):
-        self.screen.fill('white')
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                raise EndGameException
-        self.all_sprites.update()
-        self.all_sprites.draw(self.screen)
-        pygame.display.flip()
-        self.clock.tick(60)
 
 
 if __name__ == '__main__':
     pygame.init()
 
     game = Game()
-    try:
-        while True:
-            game.update()
-    except EndGameException:
-        pygame.quit()
+    running = True
+    while running:
+        game.screen.fill('black')
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.K_RIGHT:
+                game.player.move(-1)
+            if event.type == pygame.K_LEFT:
+                game.player.move(1)
+        game.all_sprites.update()
+        game.all_sprites.draw(game.screen)
+        pygame.display.flip()
+        game.clock.tick(60)
+    pygame.quit()

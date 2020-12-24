@@ -1,33 +1,20 @@
 import pygame
+from config import *
 
 
-class Player():
-    def __init__(self, width, height):
+class Player(pygame.sprite.Sprite):
+    def __init__(self, all_sprites):
+        super().__init__(all_sprites)
         self.board_width = 100
         self.board_height = 30
 
-        self.x, self.y = width // 2, height
+        self.image = pygame.Surface((self.board_width, self.board_height),
+                                    pygame.SRCALPHA, 32)
+        pygame.draw.rect(self.image, 'white', (WIDTH // 2, HEIGHT - self.board_height, self.board_width, self.board_height))
+        self.rect = pygame.Rect(WIDTH // 2, HEIGHT - self.board_height, self.board_width, self.board_height)
 
     def move(self, moving):
-        pygame.draw.rect(screen, 'white',  (self.x + moving, self.y,
-                                            self.board_width, self.board_height))
+        self.rect = self.rect.move(moving, 0)
 
-
-if __name__ == '__main__':
-    pygame.init()
-    size = 470, 470
-    screen = pygame.display.set_mode(size)
-    clock = pygame.time.Clock()
-    running = True
-    player = Player(470, 470)
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            if event.type == pygame.K_RIGHT:
-                player.move(-1)
-            if event.type == pygame.K_LEFT:
-                player.move(1)
-        pygame.display.flip()
-        screen.fill('black')
-    pygame.quit()
+    def update(self):
+        self.rect = self.rect.move(1, 0)
