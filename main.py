@@ -28,10 +28,10 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.K_RIGHT:
-                game.player.move(-1)
-            if event.type == pygame.K_LEFT:
-                game.player.move(1)
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
+                game.player.move(5)
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
+                game.player.move(-5)
         game.all_sprites.update()
         game.all_sprites.draw(game.screen)
         pygame.display.flip()

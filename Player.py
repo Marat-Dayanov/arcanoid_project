@@ -1,20 +1,18 @@
 import pygame
 from config import *
+from Utiles import *
 
 
 class Player(pygame.sprite.Sprite):
+    image = load_image("platform.png")
+
     def __init__(self, all_sprites):
         super().__init__(all_sprites)
-        self.board_width = 100
-        self.board_height = 30
-
-        self.image = pygame.Surface((self.board_width, self.board_height),
-                                    pygame.SRCALPHA, 32)
-        pygame.draw.rect(self.image, 'white', (WIDTH // 2, HEIGHT - self.board_height, self.board_width, self.board_height))
-        self.rect = pygame.Rect(WIDTH // 2, HEIGHT - self.board_height, self.board_width, self.board_height)
+        self.image = Player.image
+        self.rect = self.image.get_rect()
+        self.rect.x = WIDTH // 2
+        self.rect.y = HEIGHT - 50
 
     def move(self, moving):
         self.rect = self.rect.move(moving, 0)
 
-    def update(self):
-        self.rect = self.rect.move(1, 0)
