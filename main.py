@@ -14,7 +14,7 @@ class Game:
         self.clock = pygame.time.Clock()
 
         self.player = Player(self.all_sprites)
-        self.balls = Ball(10, 20, 100, self.all_sprites)
+        self.balls = Ball(10, 20, 100, self.all_sprites, self.player)
         self.blocks = []
 
 
