@@ -14,7 +14,7 @@ class Game:
         self.clock = pygame.time.Clock()
 
         self.player = Player(self.all_sprites)
-        self.balls = Ball(10, 20, 100, self.all_sprites)
+        self.balls = Ball(10, 20, 100, self.all_sprites, self.player)
         self.blocks = []
 
 
@@ -28,10 +28,10 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
-                game.player.move(5)
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
-                game.player.move(-5)
+        if pygame.key.get_pressed()[pygame.K_LEFT]:
+            game.player.move_left()
+        if pygame.key.get_pressed()[pygame.K_RIGHT]:
+            game.player.move_right()
         game.all_sprites.update()
         game.all_sprites.draw(game.screen)
         pygame.display.flip()
