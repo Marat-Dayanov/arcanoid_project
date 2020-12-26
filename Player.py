@@ -19,5 +19,3 @@ class Player(pygame.sprite.Sprite):
 
     def move_right(self):
         self.rect = self.rect.move(self.speed, 0)
-
-
