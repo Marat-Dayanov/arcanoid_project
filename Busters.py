@@ -1,5 +1,3 @@
-from random import randrange
-
 import pygame
 from config import HEIGHT, WIDTH
 

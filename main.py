@@ -16,17 +16,16 @@ class Game:
         self.blocks = pygame.sprite.Group()
 
         self.level = level1
+        self.player = Player(self.all_sprites)
 
         for i, row in enumerate(level1):
             for j, el in enumerate(row):
                 if el != 0:
-                    Block(j * 60, i * 50, el, self.all_sprites, self.blocks)
+                    Block(j * 60, i * 50, el, self.all_sprites, self.blocks, self.player)
 
         self.clock = pygame.time.Clock()
 
-        self.player = Player(self.all_sprites)
         self.balls = Ball(10, 20, 100, self.all_sprites, self.player, self.blocks)
-        self.buster = Buster(10, 10, 100, self.all_sprites, self.player)
 
 
 if __name__ == '__main__':
