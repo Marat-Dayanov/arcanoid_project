@@ -15,7 +15,15 @@ class Player(pygame.sprite.Sprite):
         self.speed = 5
 
     def move_left(self):
-        self.rect = self.rect.move(-self.speed, 0)
+        if self.rect.x - self.speed >= 0:
+            self.rect = self.rect.move(-self.speed, 0)
+        else:
+            self.rect.x = 0
 
     def move_right(self):
-        self.rect = self.rect.move(self.speed, 0)
+        if self.rect.x + self.speed + self.rect.w <= WIDTH:
+            self.rect = self.rect.move(self.speed, 0)
+        else:
+            self.rect.x = WIDTH - self.rect.w
+
+
