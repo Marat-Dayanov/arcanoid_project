@@ -30,8 +30,12 @@ class Ball(pygame.sprite.Sprite):
         if pygame.sprite.spritecollideany(self, self.blocks):
             self.vx = -self.vx
             self.rect = self.rect.move(self.vx, 0)
+            for block in self.blocks:
+                block.check_collide_with_ball(self)
         else:
             self.rect = self.rect.move(0, self.vy)
             if pygame.sprite.spritecollideany(self, self.blocks):
                 self.vy = -self.vy
                 self.rect = self.rect.move(0, self.vy)
+                for block in self.blocks:
+                    block.check_collide_with_ball(self)

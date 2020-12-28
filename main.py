@@ -19,7 +19,7 @@ class Game:
         for i, row in enumerate(level1):
             for j, el in enumerate(row):
                 if el != 0:
-                    Block(j * 60, i * 50, self.all_sprites, self.blocks)
+                    Block(j * 60, i * 50, el, self.all_sprites, self.blocks)
 
         self.clock = pygame.time.Clock()
 
