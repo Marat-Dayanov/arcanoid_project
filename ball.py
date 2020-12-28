@@ -1,3 +1,5 @@
+from random import randrange
+
 import pygame
 from config import HEIGHT, WIDTH
 
@@ -26,6 +28,7 @@ class Ball(pygame.sprite.Sprite):
             self.vy = -self.vy
         if pygame.sprite.collide_rect(self, self.player):
             self.vy = -self.vy
+            self.vx = self.vx // abs(self.vx) * randrange(1, 4)
         self.rect = self.rect.move(self.vx, 0)
         if pygame.sprite.spritecollideany(self, self.blocks):
             self.vx = -self.vx
