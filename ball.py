@@ -8,12 +8,12 @@ from Utiles import *
 class Ball(pygame.sprite.Sprite):
     image = load_image('ball.png')
 
-    def __init__(self, x, y, all_sprites, balls, player, blocks):
+    def __init__(self, all_sprites, balls, player, blocks):
         super().__init__(all_sprites, balls)
         self.balls = balls
         self.radius = 10
         self.image = Ball.image
-        self.rect = pygame.Rect(x, y, 2 * self.radius, 2 * self.radius)
+        self.rect = pygame.Rect(player.rect.x + player.rect.w // 2, player.rect.y - player.rect.h, 2 * self.radius, 2 * self.radius)
         self.vx = 2
         self.vy = 2
         self.player = player

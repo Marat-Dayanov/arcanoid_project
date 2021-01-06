@@ -62,13 +62,13 @@ class PowerBuster(Buster):
 
 class ManyBuster(Buster):
     def bonus(self):
-        Ball(50, 50, Buster.game.all_sprites, Buster.game.balls, Buster.game.player, Buster.game.blocks)
-        Ball(100, 100, Buster.game.all_sprites, Buster.game.balls, Buster.game.player, Buster.game.blocks)
+        Ball(Buster.game.all_sprites, Buster.game.balls, Buster.game.player, Buster.game.blocks)
+        Ball(Buster.game.all_sprites, Buster.game.balls, Buster.game.player, Buster.game.blocks)
 
 
 busters = [
-    # GreatPlayerBuster,
-    # SpeedBuster,
-    # PowerBuster,
+    GreatPlayerBuster,
+    SpeedBuster,
+    PowerBuster,
     ManyBuster
 ]
