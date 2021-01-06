@@ -4,7 +4,9 @@ from Utiles import BUSTERENDEVENT
 
 
 class Buster(pygame.sprite.Sprite):
-    def __init__(self, radius, x, y, all_sprites, game):
+    game = None
+
+    def __init__(self, radius, x, y, all_sprites):
         super().__init__(all_sprites)
         self.radius = radius
         self.image = pygame.Surface((2 * radius, 2 * radius),
@@ -13,10 +15,9 @@ class Buster(pygame.sprite.Sprite):
                            (radius, radius), radius)
         self.rect = pygame.Rect(x, y, 2 * radius, 2 * radius)
         self.vy = 1
-        self.game = game
 
     def update(self):
-        if pygame.sprite.collide_rect(self, self.game.player) or self.rect.y > HEIGHT:
+        if pygame.sprite.collide_rect(self, Buster.game.player) or self.rect.y > HEIGHT:
             self.bonus()
             for group in self.groups():
                 group.remove(self)
@@ -25,13 +26,21 @@ class Buster(pygame.sprite.Sprite):
     def bonus(self):
         pass
 
+    @classmethod
+    def destroy(cls):
+        pass
+
 
 class GreatPlayerBuster(Buster):
     def bonus(self):
-        self.game.player.set_width(self.game.player.rect.w * 1.5)
+        self.game.player.set_width(Buster.game.player.rect.w * 1.5)
         pygame.time.set_timer(BUSTERENDEVENT, 10000)
+
+    @classmethod
+    def destroy(cls):
+        Buster.game.player.set_width(Buster.game.player.rect.w * 0.66)
 
 
 busters = [
-    GreatPlayerBuster
+    GreatPlayerBuster,
 ]

@@ -27,14 +27,20 @@ class Game:
 
         self.balls = Ball(10, 20, 100, self.all_sprites, self.player, self.blocks)
 
+        self.buster = None
+
     def buster_clear(self):
-        self.player.set_width(self.player.rect.w * 0.75)
+        if self.buster is None:
+            return
+        self.buster.destroy()
+        self.buster = None
 
 
 if __name__ == '__main__':
     pygame.init()
 
     game = Game()
+    Buster.game = game
     running = True
     while running:
         game.screen.fill('black')
@@ -43,6 +49,7 @@ if __name__ == '__main__':
                 running = False
             if event.type == BUSTERENDEVENT:
                 game.buster_clear()
+                pygame.time.set_timer(BUSTERENDEVENT, 0)
         if pygame.key.get_pressed()[pygame.K_LEFT]:
             game.player.move_left()
         if pygame.key.get_pressed()[pygame.K_RIGHT]:

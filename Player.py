@@ -12,7 +12,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = WIDTH // 2
         self.rect.y = HEIGHT - 50
-        self.speed = 5
+        self.speed = 3
 
     def move_left(self):
         if self.rect.x - self.speed >= 0:
@@ -31,3 +31,6 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (int(width), int(self.rect.h)))
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = x, y
+
+    def set_speed(self, speed):
+        self.speed = speed

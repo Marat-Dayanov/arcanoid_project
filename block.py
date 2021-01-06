@@ -33,8 +33,9 @@ class Block(pygame.sprite.Sprite):
             if self.health <= 0:
                 for group in self.groups():
                     group.remove(self)
-                if randrange(0, 2):
-                    choice(busters)(20, self.rect.x, self.rect.y, self.all_sprites, self.game)
+                if randrange(1, 2) and self.game.buster is None:
+                    self.game.buster = choice(busters)
+                    self.game.buster(20, self.rect.x, self.rect.y, self.all_sprites)
             if self.health >= 3:
                 self.image = Block.image1
             elif self.health == 2:
