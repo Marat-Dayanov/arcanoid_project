@@ -28,7 +28,7 @@ class Game:
         self.balls = Ball(10, 20, 100, self.all_sprites, self.player, self.blocks)
 
     def buster_clear(self):
-        pass
+        self.player.set_width(self.player.rect.w * 0.75)
 
 
 if __name__ == '__main__':
