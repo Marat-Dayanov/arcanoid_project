@@ -2,17 +2,17 @@ from random import randrange
 
 import pygame
 from config import HEIGHT, WIDTH
+from Utiles import *
 
 
 class Ball(pygame.sprite.Sprite):
-    def __init__(self, radius, x, y, all_sprites, player, blocks):
+    image = load_image('ball.png')
+
+    def __init__(self, x, y, all_sprites, player, blocks):
         super().__init__(all_sprites)
-        self.radius = radius
-        self.image = pygame.Surface((2 * radius, 2 * radius),
-                                    pygame.SRCALPHA, 32)
-        pygame.draw.circle(self.image, pygame.Color("red"),
-                           (radius, radius), radius)
-        self.rect = pygame.Rect(x, y, 2 * radius, 2 * radius)
+        self.radius = 10
+        self.image = Ball.image
+        self.rect = pygame.Rect(x, y, 2 * self.radius, 2 * self.radius)
         self.vx = 2
         self.vy = 2
         self.player = player

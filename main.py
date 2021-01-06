@@ -12,6 +12,8 @@ class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
+        self.background = load_image('img.jpg')
+
         self.all_sprites = pygame.sprite.Group()
         self.blocks = pygame.sprite.Group()
 
@@ -25,7 +27,7 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        self.balls = Ball(10, 20, 100, self.all_sprites, self.player, self.blocks)
+        self.balls = Ball(20, 100, self.all_sprites, self.player, self.blocks)
 
         self.buster = None
 
@@ -43,7 +45,7 @@ if __name__ == '__main__':
     Buster.game = game
     running = True
     while running:
-        game.screen.fill('black')
+        game.screen.blit(game.background, (0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False

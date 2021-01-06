@@ -35,7 +35,7 @@ class Block(pygame.sprite.Sprite):
                     group.remove(self)
                 if randrange(1, 2) and self.game.buster is None:
                     self.game.buster = choice(busters)
-                    self.game.buster(20, self.rect.x, self.rect.y, self.all_sprites)
+                    self.game.buster(self.rect.x, self.rect.y, self.all_sprites)
             if self.health >= 3:
                 self.image = Block.image1
             elif self.health == 2:

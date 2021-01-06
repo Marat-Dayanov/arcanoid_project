@@ -1,19 +1,17 @@
 import pygame
 from config import HEIGHT, WIDTH
-from Utiles import BUSTERENDEVENT
+from Utiles import *
 
 
 class Buster(pygame.sprite.Sprite):
     game = None
+    image = load_image('buster.png')
 
-    def __init__(self, radius, x, y, all_sprites):
+    def __init__(self, x, y, all_sprites):
         super().__init__(all_sprites)
-        self.radius = radius
-        self.image = pygame.Surface((2 * radius, 2 * radius),
-                                    pygame.SRCALPHA, 32)
-        pygame.draw.circle(self.image, pygame.Color("blue"),
-                           (radius, radius), radius)
-        self.rect = pygame.Rect(x, y, 2 * radius, 2 * radius)
+        self.radius = 20
+        self.image = Buster.image
+        self.rect = pygame.Rect(x, y, 2 * self.radius, 2 * self.radius)
         self.vy = 1
 
     def update(self):
