@@ -1,4 +1,4 @@
-from random import randrange
+from random import randrange, choice
 
 import pygame
 from config import *
@@ -11,10 +11,10 @@ class Block(pygame.sprite.Sprite):
     image2 = load_image("block2.png")
     image3 = load_image("block3.png")
 
-    def __init__(self, x, y, health, all_sprites, blocks, player):
+    def __init__(self, x, y, health, all_sprites, blocks, game):
         super().__init__(all_sprites, blocks)
         self.all_sprites = all_sprites
-        self.player = player
+        self.game = game
         self.health = health
         if self.health >= 3:
             self.image = Block.image1
@@ -34,7 +34,7 @@ class Block(pygame.sprite.Sprite):
                 for group in self.groups():
                     group.remove(self)
                 if randrange(0, 2):
-                    Buster(20, self.rect.x, self.rect.y, self.all_sprites, self.player)
+                    choice(busters)(20, self.rect.x, self.rect.y, self.all_sprites, self.game)
             if self.health >= 3:
                 self.image = Block.image1
             elif self.health == 2:

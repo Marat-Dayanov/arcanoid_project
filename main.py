@@ -21,11 +21,14 @@ class Game:
         for i, row in enumerate(level1):
             for j, el in enumerate(row):
                 if el != 0:
-                    Block(j * 60, i * 50, el, self.all_sprites, self.blocks, self.player)
+                    Block(j * 60, i * 50, el, self.all_sprites, self.blocks, self)
 
         self.clock = pygame.time.Clock()
 
         self.balls = Ball(10, 20, 100, self.all_sprites, self.player, self.blocks)
+
+    def buster_clear(self):
+        pass
 
 
 if __name__ == '__main__':
@@ -38,6 +41,8 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == BUSTERENDEVENT:
+                game.buster_clear()
         if pygame.key.get_pressed()[pygame.K_LEFT]:
             game.player.move_left()
         if pygame.key.get_pressed()[pygame.K_RIGHT]:

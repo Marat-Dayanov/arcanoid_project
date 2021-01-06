@@ -3,6 +3,9 @@ import os, sys, pygame
 pygame.init()
 
 
+BUSTERENDEVENT = pygame.USEREVENT + 1
+
+
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', name)
     # если файл не существует, то выходим

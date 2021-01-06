@@ -26,4 +26,8 @@ class Player(pygame.sprite.Sprite):
         else:
             self.rect.x = WIDTH - self.rect.w
 
-
+    def set_width(self, width):
+        x, y = self.rect.x, self.rect.y
+        self.image = pygame.transform.scale(self.image, (int(width), int(self.rect.h)))
+        self.rect = self.image.get_rect()
+        self.rect.x, self.rect.y = x, y
