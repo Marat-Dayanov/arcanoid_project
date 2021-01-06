@@ -24,7 +24,6 @@ class Ball(pygame.sprite.Sprite):
         if self.rect.y + self.radius * 2 >= HEIGHT:
             for group in self.groups():
                 group.remove(self)
-
             if len(self.balls) == 0:
                 print('You lose')
                 exit()

@@ -52,12 +52,14 @@ class SpeedBuster(Buster):
 
 class PowerBuster(Buster):
     def bonus(self):
-        Buster.game.balls.power = 3
-        pygame.time.set_timer(BUSTERENDEVENT, 10000)
+        for ball in Buster.game.balls:
+            ball.power = 3
+        pygame.time.set_timer(BUSTERENDEVENT, 20000)
 
     @classmethod
     def destroy(cls):
-        Buster.game.balls.power = 1
+        for ball in Buster.game.balls:
+            ball.power = 1
 
 
 class ManyBuster(Buster):
@@ -67,8 +69,8 @@ class ManyBuster(Buster):
 
 
 busters = [
-    GreatPlayerBuster,
-    SpeedBuster,
+    # GreatPlayerBuster,
+    # SpeedBuster,
     PowerBuster,
-    ManyBuster
+    # ManyBuster
 ]
