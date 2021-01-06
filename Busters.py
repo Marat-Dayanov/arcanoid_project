@@ -39,6 +39,32 @@ class GreatPlayerBuster(Buster):
         Buster.game.player.set_width(Buster.game.player.rect.w * 0.66)
 
 
+class SpeedBuster(Buster):
+    def bonus(self):
+        self.game.player.set_speed(Buster.game.player.speed * 1.5)
+        pygame.time.set_timer(BUSTERENDEVENT, 10000)
+
+    @classmethod
+    def destroy(cls):
+        Buster.game.player.set_speed(Buster.game.player.speed * 0.66)
+
+
+class PowerBuster(Buster):
+    def bonus(self):
+        Buster.game.balls.power = 3
+        pygame.time.set_timer(BUSTERENDEVENT, 10000)
+
+    @classmethod
+    def destroy(cls):
+        Buster.game.balls.power = 1
+
+
+class ManyBuster(Buster):
+    pass
+
+
 busters = [
     GreatPlayerBuster,
+    SpeedBuster,
+    PowerBuster
 ]

@@ -17,6 +17,7 @@ class Ball(pygame.sprite.Sprite):
         self.vy = 2
         self.player = player
         self.blocks = blocks
+        self.power = 1
 
     def update(self):
         if self.rect.y + self.radius * 2 >= HEIGHT:

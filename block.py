@@ -29,7 +29,7 @@ class Block(pygame.sprite.Sprite):
 
     def check_collide_with_ball(self, ball):
         if pygame.sprite.collide_circle(self, ball):
-            self.health -= 1
+            self.health -= ball.power
             if self.health <= 0:
                 for group in self.groups():
                     group.remove(self)
