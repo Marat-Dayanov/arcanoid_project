@@ -1,4 +1,4 @@
-from random import randrange, choice
+from random import randrange, choice, random
 
 import pygame
 from config import *
@@ -33,7 +33,7 @@ class Block(pygame.sprite.Sprite):
             if self.health <= 0:
                 for group in self.groups():
                     group.remove(self)
-                if randrange(1, 2) and self.game.buster is None:
+                if random() > 0 and self.game.buster is None:
                     self.game.buster = choice(busters)
                     self.game.buster(self.rect.x, self.rect.y, self.all_sprites)
             if self.health >= 3:

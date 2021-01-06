@@ -8,8 +8,9 @@ from Utiles import *
 class Ball(pygame.sprite.Sprite):
     image = load_image('ball.png')
 
-    def __init__(self, x, y, all_sprites, player, blocks):
-        super().__init__(all_sprites)
+    def __init__(self, x, y, all_sprites, balls, player, blocks):
+        super().__init__(all_sprites, balls)
+        self.balls = balls
         self.radius = 10
         self.image = Ball.image
         self.rect = pygame.Rect(x, y, 2 * self.radius, 2 * self.radius)
@@ -21,8 +22,12 @@ class Ball(pygame.sprite.Sprite):
 
     def update(self):
         if self.rect.y + self.radius * 2 >= HEIGHT:
-            print('You lose')
-            exit()
+            for group in self.groups():
+                group.remove(self)
+
+            if len(self.balls) == 0:
+                print('You lose')
+                exit()
         if not 0 < self.rect.x < WIDTH or not 0 < self.rect.x + self.radius * 2 < WIDTH:
             self.vx = -self.vx
         if self.rect.y <= 0:
@@ -36,6 +41,9 @@ class Ball(pygame.sprite.Sprite):
                 block.check_collide_with_ball(self)
             self.vx = -self.vx
             self.rect = self.rect.move(self.vx, 0)
+            if len(self.blocks) == 0:
+                print('You win')
+                exit()
         else:
             self.rect = self.rect.move(0, self.vy)
             if pygame.sprite.spritecollideany(self, self.blocks):
@@ -43,3 +51,6 @@ class Ball(pygame.sprite.Sprite):
                     block.check_collide_with_ball(self)
                 self.vy = -self.vy
                 self.rect = self.rect.move(0, self.vy)
+                if len(self.blocks) == 0:
+                    print('You win')
+                    exit()

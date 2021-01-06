@@ -1,6 +1,7 @@
 import pygame
 from config import HEIGHT, WIDTH
 from Utiles import *
+from ball import Ball
 
 
 class Buster(pygame.sprite.Sprite):
@@ -60,11 +61,14 @@ class PowerBuster(Buster):
 
 
 class ManyBuster(Buster):
-    pass
+    def bonus(self):
+        Ball(50, 50, Buster.game.all_sprites, Buster.game.balls, Buster.game.player, Buster.game.blocks)
+        Ball(100, 100, Buster.game.all_sprites, Buster.game.balls, Buster.game.player, Buster.game.blocks)
 
 
 busters = [
-    GreatPlayerBuster,
-    SpeedBuster,
-    PowerBuster
+    # GreatPlayerBuster,
+    # SpeedBuster,
+    # PowerBuster,
+    ManyBuster
 ]

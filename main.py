@@ -27,7 +27,8 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        self.balls = Ball(20, 100, self.all_sprites, self.player, self.blocks)
+        self.balls = pygame.sprite.Group()
+        Ball(20, 100, self.all_sprites, self.balls, self.player, self.blocks)
 
         self.buster = None
 
