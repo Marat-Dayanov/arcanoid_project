@@ -14,8 +14,8 @@ class Ball(pygame.sprite.Sprite):
         self.radius = 10
         self.image = Ball.image
         self.rect = pygame.Rect(player.rect.x + player.rect.w // 2, player.rect.y - player.rect.h, 2 * self.radius, 2 * self.radius)
-        self.vx = 2
-        self.vy = 2
+        self.vx = randrange(2, 4)
+        self.vy = randrange(2, 4)
         self.player = player
         self.blocks = blocks
         self.power = 1
@@ -31,11 +31,13 @@ class Ball(pygame.sprite.Sprite):
             self.vx = -self.vx
         if self.rect.y <= 0:
             self.vy = -self.vy
+        self.rect = self.rect.move(self.vx, 0)
+
         if pygame.sprite.collide_rect(self, self.player):
             self.vy = -self.vy
-            self.vx = self.vx // abs(self.vx) * randrange(1, 4)
-        self.rect = self.rect.move(self.vx, 0)
-        if pygame.sprite.spritecollideany(self, self.blocks):
+            self.vx = -self.vx
+            self.rect = self.rect.move(self.vx, 0)
+        elif pygame.sprite.spritecollideany(self, self.blocks):
             for block in self.blocks:
                 block.check_collide_with_ball(self)
             self.vx = -self.vx
@@ -45,7 +47,12 @@ class Ball(pygame.sprite.Sprite):
                 exit()
         else:
             self.rect = self.rect.move(0, self.vy)
-            if pygame.sprite.spritecollideany(self, self.blocks):
+
+            if pygame.sprite.collide_rect(self, self.player):
+                self.vy = -self.vy
+                self.rect = self.rect.move(0, self.vy)
+
+            elif pygame.sprite.spritecollideany(self, self.blocks):
                 for block in self.blocks:
                     block.check_collide_with_ball(self)
                 self.vy = -self.vy

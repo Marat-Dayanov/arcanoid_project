@@ -16,8 +16,12 @@ class Buster(pygame.sprite.Sprite):
         self.vy = 1
 
     def update(self):
-        if pygame.sprite.collide_rect(self, Buster.game.player) or self.rect.y > HEIGHT:
+        if pygame.sprite.collide_rect(self, Buster.game.player):
             self.bonus()
+            for group in self.groups():
+                group.remove(self)
+        if self.rect.y > HEIGHT:
+            Buster.game.buster = None
             for group in self.groups():
                 group.remove(self)
         self.rect = self.rect.move(0, self.vy)
@@ -32,22 +36,22 @@ class Buster(pygame.sprite.Sprite):
 
 class GreatPlayerBuster(Buster):
     def bonus(self):
-        self.game.player.set_width(Buster.game.player.rect.w * 1.5)
+        self.game.player.set_width(Buster.game.player.rect.w * 2)
         pygame.time.set_timer(BUSTERENDEVENT, 10000)
 
     @classmethod
     def destroy(cls):
-        Buster.game.player.set_width(Buster.game.player.rect.w * 0.66)
+        Buster.game.player.set_width(Buster.game.player.rect.w * 0.5)
 
 
 class SpeedBuster(Buster):
     def bonus(self):
-        self.game.player.set_speed(Buster.game.player.speed * 1.5)
+        self.game.player.set_speed(Buster.game.player.speed * 2)
         pygame.time.set_timer(BUSTERENDEVENT, 10000)
 
     @classmethod
     def destroy(cls):
-        Buster.game.player.set_speed(Buster.game.player.speed * 0.66)
+        Buster.game.player.set_speed(Buster.game.player.speed * 0.5)
 
 
 class PowerBuster(Buster):
@@ -64,13 +68,14 @@ class PowerBuster(Buster):
 
 class ManyBuster(Buster):
     def bonus(self):
+        Buster.game.buster = None
         Ball(Buster.game.all_sprites, Buster.game.balls, Buster.game.player, Buster.game.blocks)
         Ball(Buster.game.all_sprites, Buster.game.balls, Buster.game.player, Buster.game.blocks)
 
 
 busters = [
-    # GreatPlayerBuster,
-    # SpeedBuster,
+    GreatPlayerBuster,
+    SpeedBuster,
     PowerBuster,
-    # ManyBuster
+    ManyBuster
 ]

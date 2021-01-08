@@ -16,9 +16,10 @@ class Game:
 
         self.all_sprites = pygame.sprite.Group()
         self.blocks = pygame.sprite.Group()
+        self.balls = pygame.sprite.Group()
 
         self.level = level1
-        self.player = Player(self.all_sprites)
+        self.player = Player(self.all_sprites, self.balls)
 
         for i, row in enumerate(level1):
             for j, el in enumerate(row):
@@ -27,7 +28,6 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        self.balls = pygame.sprite.Group()
         Ball(self.all_sprites, self.balls, self.player, self.blocks)
 
         self.buster = None
