@@ -6,6 +6,7 @@ from Player import *
 from block import *
 from levels import *
 from Busters import *
+from menu import *
 
 
 class Game:
@@ -44,6 +45,10 @@ if __name__ == '__main__':
 
     game = Game()
     Buster.game = game
+    punkts = [(120, 140, 'Game', (250, 250, 30), (250, 30, 250), 0),
+              (130, 210, 'Quit', (250, 250, 30), (250, 30, 250), 1)]
+    menu = Menu(punkts, game)
+    menu.menu()
     running = True
     while running:
         game.screen.blit(game.background, (0, 0))
