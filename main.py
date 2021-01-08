@@ -19,13 +19,7 @@ class Game:
         self.blocks = pygame.sprite.Group()
         self.balls = pygame.sprite.Group()
 
-        self.level = level1
         self.player = Player(self.all_sprites, self.balls)
-
-        for i, row in enumerate(level1):
-            for j, el in enumerate(row):
-                if el != 0:
-                    Block(j * 60, i * 50, el, self.all_sprites, self.blocks, self)
 
         self.clock = pygame.time.Clock()
 
@@ -33,10 +27,26 @@ class Game:
 
         self.buster = None
 
+    def set_level(self, level):
+        for i, row in enumerate(level):
+            for j, el in enumerate(row):
+                if el != 0:
+                    Block(j * 60, i * 50, el, self.all_sprites, self.blocks, self)
+
     def buster_clear(self):
         if self.buster is None:
             return
         self.buster.destroy()
+        self.buster = None
+
+    def clear(self):
+        self.all_sprites = pygame.sprite.Group()
+        self.blocks = pygame.sprite.Group()
+        self.balls = pygame.sprite.Group()
+
+        self.player = Player(self.all_sprites, self.balls)
+        Ball(self.all_sprites, self.balls, self.player, self.blocks)
+
         self.buster = None
 
 
@@ -45,9 +55,8 @@ if __name__ == '__main__':
 
     game = Game()
     Buster.game = game
-    punkts = [(120, 140, 'Game', (250, 250, 30), (250, 30, 250), 0),
-              (130, 210, 'Quit', (250, 250, 30), (250, 30, 250), 1)]
-    menu = Menu(punkts, game)
+    MenuItem.game = game
+    menu.set_game(game)
     menu.menu()
     running = True
     while running:

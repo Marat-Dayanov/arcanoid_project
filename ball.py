@@ -25,8 +25,7 @@ class Ball(pygame.sprite.Sprite):
             for group in self.groups():
                 group.remove(self)
             if len(self.balls) == 0:
-                print('You lose')
-                exit()
+                menu.menu()
         if not 0 < self.rect.x < WIDTH or not 0 < self.rect.x + self.radius * 2 < WIDTH:
             self.vx = -self.vx
         if self.rect.y <= 0:
@@ -43,8 +42,7 @@ class Ball(pygame.sprite.Sprite):
             self.vx = -self.vx
             self.rect = self.rect.move(self.vx, 0)
             if len(self.blocks) == 0:
-                print('You win')
-                exit()
+                menu.menu()
         else:
             self.rect = self.rect.move(0, self.vy)
 
@@ -58,5 +56,4 @@ class Ball(pygame.sprite.Sprite):
                 self.vy = -self.vy
                 self.rect = self.rect.move(0, self.vy)
                 if len(self.blocks) == 0:
-                    print('You win')
-                    exit()
+                    menu.menu()
