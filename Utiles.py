@@ -1,14 +1,8 @@
 import os, sys, pygame
 from levels import *
-from menu import *
+from menu import Menu, MenuItem
 
 pygame.init()
-
-
-BUSTERENDEVENT = pygame.USEREVENT + 1
-
-menu_items = [MenuItem(f'Level {i + 1}', (250, 250, 30), (250, 30, 250), level) for i, level in enumerate(levels)]
-menu = Menu(menu_items)
 
 
 def load_image(name, colorkey=None):
@@ -24,3 +18,12 @@ def load_image(name, colorkey=None):
             colorkey = image.get_at((0, 0))
         image.set_colorkey(colorkey)
     return image
+
+
+BUSTERENDEVENT = pygame.USEREVENT + 1
+
+Menu.img = load_image('menu_background.png')
+
+
+menu_items = [MenuItem(f'Level {i + 1}', (250, 250, 30), (250, 30, 250), level) for i, level in enumerate(levels)]
+menu = Menu(menu_items)
