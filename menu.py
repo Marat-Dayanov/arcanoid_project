@@ -13,9 +13,12 @@ class Menu:
 
     def render(self):
         for i, item in enumerate(self.punkts):
-            text = self.font.render(item.name, True, item.base_color)
-            x = 120
-            y = i * 40 + 50
+            if item.is_active:
+                text = self.font.render(item.name, True, item.active_color)
+            else:
+                text = self.font.render(item.name, True, item.base_color)
+            x = 180
+            y = i * 60 + 100
             self.game.screen.blit(text, (x, y))
 
     def menu(self):
@@ -30,9 +33,25 @@ class Menu:
                     sys.exit()
                 if e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
                     x, y = pygame.mouse.get_pos()
-                    num = (y - 50) // 40
+                    num = (y - 100) // 60
+                    if num < 0:
+                        num = 0
+                    if num >= len(self.punkts):
+                        num = len(self.punkts) - 1
                     self.punkts[num].on_click()
                     done = False
+
+                if e.type == pygame.MOUSEMOTION:
+                    x, y = pygame.mouse.get_pos()
+                    num = (y - 100) // 60
+                    if num < 0:
+                        num = 0
+                    if num >= len(self.punkts):
+                        num = len(self.punkts) - 1
+                    for i, item in enumerate(self.punkts):
+                        item.is_active = False
+                    self.punkts[num].is_active = True
+
 
             self.game.screen.blit(self.game.screen, (0, 0))
             pygame.display.flip()
@@ -46,6 +65,7 @@ class MenuItem:
         self.base_color = base_color
         self.active_color = active_color
         self.level = level
+        self.is_active = False
 
     def on_click(self):
         MenuItem.game.clear()
