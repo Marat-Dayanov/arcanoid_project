@@ -18,7 +18,7 @@ class Menu:
             else:
                 text = self.font.render(item.name, True, item.base_color)
             x = 180
-            y = i * 60 + 100
+            y = i * 40 + 100
             self.game.screen.blit(text, (x, y))
 
     def menu(self):
@@ -33,7 +33,7 @@ class Menu:
                     sys.exit()
                 if e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
                     x, y = pygame.mouse.get_pos()
-                    num = (y - 100) // 60
+                    num = (y - 100) // 40
                     if num < 0:
                         num = 0
                     if num >= len(self.punkts):
@@ -43,7 +43,7 @@ class Menu:
 
                 if e.type == pygame.MOUSEMOTION:
                     x, y = pygame.mouse.get_pos()
-                    num = (y - 100) // 60
+                    num = (y - 100) // 40
                     if num < 0:
                         num = 0
                     if num >= len(self.punkts):
