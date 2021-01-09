@@ -13,7 +13,7 @@ class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-        self.background = load_image('img.jpg')
+        self.background = None
 
         self.all_sprites = pygame.sprite.Group()
         self.blocks = pygame.sprite.Group()
@@ -28,10 +28,11 @@ class Game:
         self.buster = None
 
     def set_level(self, level):
-        for i, row in enumerate(level):
+        for i, row in enumerate(level.level_map):
             for j, el in enumerate(row):
                 if el != 0:
                     Block(j * 60, i * 50, el, self.all_sprites, self.blocks, self)
+        self.background = level.bg
 
     def buster_clear(self):
         if self.buster is None:

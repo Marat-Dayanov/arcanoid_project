@@ -25,5 +25,12 @@ BUSTERENDEVENT = pygame.USEREVENT + 1
 Menu.img = load_image('menu_background.png')
 
 
+for i, level in enumerate(levels):
+    if i == 10:
+        level.bg = load_image('background_for_LOL.jpg')
+    else:
+        level.bg = load_image('img.jpg')
+
+
 menu_items = [MenuItem(f'Level {i + 1}', (250, 250, 30), (250, 30, 250), level) for i, level in enumerate(levels)]
 menu = Menu(menu_items)

@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = WIDTH // 2
         self.rect.y = HEIGHT - 50
-        self.speed = 3
+        self.speed = 2
         self.balls = balls
 
     def move_left(self):
