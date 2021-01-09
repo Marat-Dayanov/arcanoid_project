@@ -3,6 +3,8 @@ import pygame
 
 
 class Menu:
+    img = None
+
     def __init__(self, punkts):
         self.punkts = punkts
         self.game = None
@@ -12,6 +14,7 @@ class Menu:
         self.game = game
 
     def render(self):
+        self.game.screen.blit(self.img, (0, 0))
         for i, item in enumerate(self.punkts):
             if item.is_active:
                 text = self.font.render(item.name, True, item.active_color)
@@ -20,6 +23,7 @@ class Menu:
             x = 180
             y = i * 40 + 100
             self.game.screen.blit(text, (x, y))
+
 
     def menu(self):
         done = True
@@ -51,8 +55,6 @@ class Menu:
                     for i, item in enumerate(self.punkts):
                         item.is_active = False
                     self.punkts[num].is_active = True
-
-
             self.game.screen.blit(self.game.screen, (0, 0))
             pygame.display.flip()
 
