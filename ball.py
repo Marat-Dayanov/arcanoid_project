@@ -14,7 +14,7 @@ class Ball(pygame.sprite.Sprite):
         self.radius = 10
         self.image = Ball.image
         self.rect = pygame.Rect(player.rect.x + player.rect.w // 2, player.rect.y - player.rect.h, 2 * self.radius, 2 * self.radius)
-        self.vx = randrange(2, 4)
+        self.vx = randrange(1, 4)
         self.vy = randrange(2, 4)
         self.player = player
         self.blocks = blocks
