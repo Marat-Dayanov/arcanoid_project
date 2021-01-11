@@ -27,11 +27,12 @@ class Game:
 
         self.buster = None
 
-        self.iron_count = 0
-
     def set_level(self, level):
+        self.iron_count = 0
         for i, row in enumerate(level.level_map):
             for j, el in enumerate(row):
+                if el == -5:
+                    self.iron_count += 1
                 if el != 0:
                     Block(j * 60, i * 50, el, self.all_sprites, self.blocks, self)
         self.background = level.bg
@@ -70,6 +71,10 @@ if __name__ == '__main__':
             if event.type == BUSTERENDEVENT:
                 game.buster_clear()
                 pygame.time.set_timer(BUSTERENDEVENT, 0)
+        if pygame.key.get_pressed()[pygame.K_a]:
+            game.player.move_left()
+        if pygame.key.get_pressed()[pygame.K_d]:
+            game.player.move_right()
         if pygame.key.get_pressed()[pygame.K_LEFT]:
             game.player.move_left()
         if pygame.key.get_pressed()[pygame.K_RIGHT]:

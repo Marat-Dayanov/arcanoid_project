@@ -43,7 +43,6 @@ class Ball(pygame.sprite.Sprite):
             self.vx = -self.vx
             self.rect = self.rect.move(self.vx, 0)
             if len(self.blocks) == self.game.iron_count:
-                print(len(self.blocks))
                 menu.menu()
         else:
             self.rect = self.rect.move(0, self.vy)
@@ -58,5 +57,4 @@ class Ball(pygame.sprite.Sprite):
                 self.vy = -self.vy
                 self.rect = self.rect.move(0, self.vy)
                 if len(self.blocks) == self.game.iron_count:
-                    print(len(self.blocks))
                     menu.menu()
