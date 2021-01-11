@@ -32,10 +32,7 @@ class Game:
     def set_level(self, level):
         for i, row in enumerate(level.level_map):
             for j, el in enumerate(row):
-                if el == -1:
-                    IronBlock(j * 60, i * 50, el, self.all_sprites, self.blocks, self)
-                    self.iron_count += 1
-                elif el != 0:
+                if el != 0:
                     Block(j * 60, i * 50, el, self.all_sprites, self.blocks, self)
         self.background = level.bg
 
