@@ -43,3 +43,15 @@ class Block(pygame.sprite.Sprite):
                 self.image = Block.image2
             else:
                 self.image = Block.image3
+
+
+class IronBlock(Block):
+    image = load_image('iron.png')
+
+    def __init__(self, x, y, health, all_sprites, blocks, game):
+        super().__init__(x, y, health, all_sprites, blocks, game)
+        self.image = IronBlock.image
+
+    def check_collide_with_ball(self, ball):
+        pass
+

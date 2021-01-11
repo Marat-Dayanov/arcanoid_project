@@ -8,7 +8,7 @@ from Utiles import *
 class Ball(pygame.sprite.Sprite):
     image = load_image('ball.png')
 
-    def __init__(self, all_sprites, balls, player, blocks):
+    def __init__(self, all_sprites, balls, player, blocks, game):
         super().__init__(all_sprites, balls)
         self.balls = balls
         self.radius = 10
@@ -19,6 +19,7 @@ class Ball(pygame.sprite.Sprite):
         self.player = player
         self.blocks = blocks
         self.power = 1
+        self.game = game
 
     def update(self):
         if self.rect.y + self.radius * 2 >= HEIGHT:
@@ -41,7 +42,7 @@ class Ball(pygame.sprite.Sprite):
                 block.check_collide_with_ball(self)
             self.vx = -self.vx
             self.rect = self.rect.move(self.vx, 0)
-            if len(self.blocks) == 0:
+            if len(self.blocks) == self.game.iron_count:
                 menu.menu()
         else:
             self.rect = self.rect.move(0, self.vy)
@@ -55,5 +56,5 @@ class Ball(pygame.sprite.Sprite):
                     block.check_collide_with_ball(self)
                 self.vy = -self.vy
                 self.rect = self.rect.move(0, self.vy)
-                if len(self.blocks) == 0:
+                if len(self.blocks) == self.game.iron_count:
                     menu.menu()

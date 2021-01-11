@@ -23,14 +23,19 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        Ball(self.all_sprites, self.balls, self.player, self.blocks)
+        Ball(self.all_sprites, self.balls, self.player, self.blocks, self)
 
         self.buster = None
+
+        self.iron_count = 0
 
     def set_level(self, level):
         for i, row in enumerate(level.level_map):
             for j, el in enumerate(row):
-                if el != 0:
+                if el == -1:
+                    IronBlock(j * 60, i * 50, el, self.all_sprites, self.blocks, self)
+                    self.iron_count += 1
+                elif el != 0:
                     Block(j * 60, i * 50, el, self.all_sprites, self.blocks, self)
         self.background = level.bg
 
@@ -46,7 +51,7 @@ class Game:
         self.balls = pygame.sprite.Group()
 
         self.player = Player(self.all_sprites, self.balls)
-        Ball(self.all_sprites, self.balls, self.player, self.blocks)
+        Ball(self.all_sprites, self.balls, self.player, self.blocks, self)
 
         self.buster = None
 
@@ -75,5 +80,5 @@ if __name__ == '__main__':
         game.all_sprites.update()
         game.all_sprites.draw(game.screen)
         pygame.display.flip()
-        game.clock.tick(60)
+        game.clock.tick(70)
     pygame.quit()
