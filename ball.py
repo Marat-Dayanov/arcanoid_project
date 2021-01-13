@@ -26,6 +26,7 @@ class Ball(pygame.sprite.Sprite):
             for group in self.groups():
                 group.remove(self)
             if len(self.balls) == 0:
+                pygame.time.set_timer(BUSTERENDEVENT, 0)
                 menu.menu()
         if not 0 < self.rect.x < WIDTH or not 0 < self.rect.x + self.radius * 2 < WIDTH:
             self.vx = -self.vx
@@ -43,6 +44,7 @@ class Ball(pygame.sprite.Sprite):
             self.vx = -self.vx
             self.rect = self.rect.move(self.vx, 0)
             if len(self.blocks) == self.game.iron_count:
+                pygame.time.set_timer(BUSTERENDEVENT, 0)
                 menu.complete_level()
                 menu.menu()
         else:
@@ -58,5 +60,6 @@ class Ball(pygame.sprite.Sprite):
                 self.vy = -self.vy
                 self.rect = self.rect.move(0, self.vy)
                 if len(self.blocks) == self.game.iron_count:
+                    pygame.time.set_timer(BUSTERENDEVENT, 0)
                     menu.complete_level()
                     menu.menu()

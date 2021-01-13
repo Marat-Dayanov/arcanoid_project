@@ -82,5 +82,5 @@ if __name__ == '__main__':
         game.all_sprites.update()
         game.all_sprites.draw(game.screen)
         pygame.display.flip()
-        game.clock.tick(70)
+        game.clock.tick(80)
     pygame.quit()

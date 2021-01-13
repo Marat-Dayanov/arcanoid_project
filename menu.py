@@ -37,10 +37,10 @@ class Menu:
             for i, item in enumerate(self.punkts):
                 x = 180
                 y = i * 40 + 100
-                if COMPLETED_LEVELS[i]:
-                    self.game.screen.blit(MenuItem.star_image, (x, y))
                 if item.is_active:
                     text = self.font.render(item.name, True, item.active_color)
+                elif COMPLETED_LEVELS[i]:
+                    text = self.font.render(item.name, True, (0, 255, 0))
                 else:
                     text = self.font.render(item.name, True, item.base_color)
                 self.game.screen.blit(text, (x, y))
@@ -93,8 +93,6 @@ class Menu:
 
 class MenuItem:
     game = None
-    star_image = load_image('star.jpg')
-    star_image_complete = load_image('star.jpg')
 
     def __init__(self, name, base_color, active_color, level):
         self.name = name
