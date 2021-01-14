@@ -41,5 +41,5 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = x, y
 
-    def set_speed(self, speed):
+    def set_player_speed(self, speed):
         self.speed = speed
