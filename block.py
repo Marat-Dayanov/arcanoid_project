@@ -31,6 +31,14 @@ class Block(pygame.sprite.Sprite):
         self.rect.y = y
         self.speed = 5
 
+    def refresh_image(self):
+        if self.health >= 3:
+            self.image = Block.image1
+        elif self.health == 2:
+            self.image = Block.image2
+        elif self.health == 1:
+            self.image = Block.image3
+
     def check_collide_with_ball(self, ball):
         if pygame.sprite.collide_circle(self, ball):
             if self.health <= -5:
@@ -43,9 +51,4 @@ class Block(pygame.sprite.Sprite):
                     if random() > 0 and self.game.buster is None:
                         self.game.buster = choice(busters)
                         self.game.buster(self.rect.x, self.rect.y, self.all_sprites)
-                if self.health >= 3:
-                    self.image = Block.image1
-                elif self.health == 2:
-                    self.image = Block.image2
-                elif self.health == 1:
-                    self.image = Block.image3
+            self.refresh_image()

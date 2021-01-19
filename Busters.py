@@ -7,8 +7,6 @@ from config import *
 
 class Buster(pygame.sprite.Sprite):
     game = None
-    image = load_image('buster.png')
-    image2 = load_image('bad_buster.png')
 
     def __init__(self, x, y, all_sprites):
         super().__init__(all_sprites)
@@ -35,9 +33,24 @@ class Buster(pygame.sprite.Sprite):
         pass
 
 
-class GreatPlayerBuster(Buster):
+class PositiveBuster(Buster):
+    image = load_image('buster.png')
+
+    def __init__(self, x, y, all_sprites):
+        super(PositiveBuster, self).__init__(x, y, all_sprites)
+        self.image = PositiveBuster.image
+
+
+class NegativeBuster(Buster):
+    image = load_image('bad_buster.png')
+
+    def __init__(self, x, y, all_sprites):
+        super(NegativeBuster, self).__init__(x, y, all_sprites)
+        self.image = NegativeBuster.image
+
+
+class GreatPlayerBuster(PositiveBuster):
     def bonus(self):
-        self.image = Buster.image
         self.game.player.set_width(Buster.game.player.rect.w * 2)
         pygame.time.set_timer(BUSTERENDEVENT, 10000)
 
@@ -46,20 +59,18 @@ class GreatPlayerBuster(Buster):
         Buster.game.player.set_width(Buster.game.player.rect.w * 0.5)
 
 
-class SpeedBuster(Buster):
+class SpeedBuster(PositiveBuster):
     def bonus(self):
-        self.image = Buster.image
         self.game.player.set_player_speed(Buster.game.player.speed * 2)
         pygame.time.set_timer(BUSTERENDEVENT, 10000)
 
     @classmethod
     def destroy(cls):
-        Buster.game.player.set_speed(Buster.game.player.speed * 0.5)
+        Buster.game.player.set_player_speed(Buster.game.player.speed * 0.5)
 
 
-class PowerBuster(Buster):
+class PowerBuster(PositiveBuster):
     def bonus(self):
-        self.image = Buster.image
         for ball in Buster.game.balls:
             ball.power = 3
         pygame.time.set_timer(BUSTERENDEVENT, 20000)
@@ -70,17 +81,15 @@ class PowerBuster(Buster):
             ball.power = 1
 
 
-class ManyBuster(Buster):
+class ManyBuster(PositiveBuster):
     def bonus(self):
-        self.image = Buster.image
         Buster.game.buster = None
         Ball(Buster.game.all_sprites, Buster.game.balls, Buster.game.player, Buster.game.blocks, Buster.game)
         Ball(Buster.game.all_sprites, Buster.game.balls, Buster.game.player, Buster.game.blocks, Buster.game)
 
 
-class Small_Player_Buster(Buster):
+class SmallPlayerBuster(NegativeBuster):
     def bonus(self):
-        self.image = Buster.image2
         self.game.player.set_width(Buster.game.player.rect.w * 0.5)
         pygame.time.set_timer(BUSTERENDEVENT, 10000)
 
@@ -89,10 +98,30 @@ class Small_Player_Buster(Buster):
         Buster.game.player.set_width(Buster.game.player.rect.w * 2)
 
 
+class SpeedNegativePlayerBuster(NegativeBuster):
+    def bonus(self):
+        self.game.player.set_player_speed(Buster.game.player.speed * 0.5)
+        pygame.time.set_timer(BUSTERENDEVENT, 10000)
+
+    @classmethod
+    def destroy(cls):
+        Buster.game.player.set_player_speed(Buster.game.player.speed * 2)
+
+
+class HealthBlockBuster(NegativeBuster):
+    def bonus(self):
+        for block in Buster.game.blocks:
+            block.health = 3
+            block.refresh_image()
+            Buster.game.buster = None
+
+
 busters = [
-    # GreatPlayerBuster,
-    # SpeedBuster,
-    # PowerBuster,
-    # ManyBuster,
-    Small_Player_Buster
+    GreatPlayerBuster,
+    SpeedBuster,
+    PowerBuster,
+    ManyBuster,
+    SmallPlayerBuster,
+    SpeedNegativePlayerBuster,
+    HealthBlockBuster
 ]
