@@ -12,6 +12,7 @@ from menu import *
 class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        pygame.display.set_caption('Арканоид')
 
         self.background = None
 

@@ -91,7 +91,7 @@ class ManyBuster(PositiveBuster):
 class SmallPlayerBuster(NegativeBuster):
     def bonus(self):
         self.game.player.set_width(Buster.game.player.rect.w * 0.5)
-        pygame.time.set_timer(BUSTERENDEVENT, 10000)
+        pygame.time.set_timer(BUSTERENDEVENT, 20000)
 
     @classmethod
     def destroy(cls):
@@ -111,9 +111,10 @@ class SpeedNegativePlayerBuster(NegativeBuster):
 class HealthBlockBuster(NegativeBuster):
     def bonus(self):
         for block in Buster.game.blocks:
-            block.health = 3
-            block.refresh_image()
-            Buster.game.buster = None
+            if block.health != -5:
+                block.health = 3
+                block.refresh_image()
+                Buster.game.buster = None
 
 
 busters = [
