@@ -4,8 +4,8 @@ from Utiles import *
 
 
 def load_image(name, colorkey=None):
+    """Функция загрузки картинки"""
     fullname = os.path.join('data', name)
-    # если файл не существует, то выходим
     if not os.path.isfile(fullname):
         print(f"Файл с изображением '{fullname}' не найден")
         sys.exit()
@@ -19,6 +19,7 @@ def load_image(name, colorkey=None):
 
 
 class Menu:
+    """Класс меню"""
     img = None
 
     def __init__(self, punkts):
@@ -27,9 +28,11 @@ class Menu:
         self.font = pygame.font.Font(None, 50)
 
     def set_game(self, game):
+        """Установка игры"""
         self.game = game
 
     def render(self):
+        """Отрисовка предметов меню"""
         self.game.screen.blit(self.img, (0, 0))
         with open('completed_levels.txt', 'r') as file:
             COMPLETED_LEVELS = file.readlines()
@@ -46,6 +49,7 @@ class Menu:
                 self.game.screen.blit(text, (x, y))
 
     def menu(self):
+        """Запуск меню"""
         done = True
         while done:
             self.game.screen.fill((0, 0, 0))
@@ -79,6 +83,7 @@ class Menu:
             pygame.display.flip()
 
     def complete_level(self):
+        """Отметка уровня, как завершённого"""
         with open('completed_levels.txt', 'r') as file:
             COMPLETED_LEVELS = file.readlines()
             COMPLETED_LEVELS = [int(i) for i in COMPLETED_LEVELS]
@@ -92,6 +97,7 @@ class Menu:
 
 
 class MenuItem:
+    """Класс предметов меню"""
     game = None
 
     def __init__(self, name, base_color, active_color, level):
@@ -102,5 +108,6 @@ class MenuItem:
         self.is_active = False
 
     def on_click(self):
+        """Функция, определяющая какой уровень выбрал пользователь"""
         MenuItem.game.clear()
         MenuItem.game.set_level(self.level)

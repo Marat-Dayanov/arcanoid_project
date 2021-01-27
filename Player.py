@@ -18,6 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.balls = balls
 
     def move_left(self):
+        """Движение платформы влево"""
         prev_rect = deepcopy(self.rect)
         if self.rect.x - self.speed >= 0:
             self.rect = self.rect.move(-self.speed, 0)
@@ -27,6 +28,7 @@ class Player(pygame.sprite.Sprite):
             self.rect = prev_rect
 
     def move_right(self):
+        """Движение платформы вправо"""
         prev_rect = deepcopy(self.rect)
         if self.rect.x + self.speed + self.rect.w <= WIDTH:
             self.rect = self.rect.move(self.speed, 0)
@@ -36,10 +38,12 @@ class Player(pygame.sprite.Sprite):
             self.rect = prev_rect
 
     def set_width(self, width):
+        """Установка длины платформы"""
         x, y = self.rect.x, self.rect.y
         self.image = pygame.transform.scale(self.image, (int(width), int(self.rect.h)))
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = x, y
 
     def set_player_speed(self, speed):
+        """Установка скорости платформы"""
         self.speed = speed

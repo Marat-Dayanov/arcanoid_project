@@ -8,6 +8,7 @@ from Busters import *
 
 
 class Block(pygame.sprite.Sprite):
+    """Класс блоков"""
     image1 = load_image("block.png")
     image2 = load_image("block2.png")
     image3 = load_image("block3.png")
@@ -32,6 +33,7 @@ class Block(pygame.sprite.Sprite):
         self.speed = 5
 
     def refresh_image(self):
+        """Обновление картинки"""
         if self.health >= 3:
             self.image = Block.image1
         elif self.health == 2:
@@ -40,6 +42,7 @@ class Block(pygame.sprite.Sprite):
             self.image = Block.image3
 
     def check_collide_with_ball(self, ball):
+        """Столкновение шарика с блоком"""
         if pygame.sprite.collide_circle(self, ball):
             if self.health <= -5:
                 self.image = Block.image4

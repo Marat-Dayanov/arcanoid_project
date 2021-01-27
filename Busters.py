@@ -15,6 +15,7 @@ class Buster(pygame.sprite.Sprite):
         self.vy = 1
 
     def update(self):
+        """Падение бустера и проверка столкновения бустера с платформой"""
         if pygame.sprite.collide_rect(self, Buster.game.player):
             self.bonus()
             for group in self.groups():
@@ -26,10 +27,12 @@ class Buster(pygame.sprite.Sprite):
         self.rect = self.rect.move(0, self.vy)
 
     def bonus(self):
+        """Изменение параметров игры"""
         pass
 
     @classmethod
     def destroy(cls):
+        """Уничтожение действия бустера"""
         pass
 
 
@@ -50,6 +53,7 @@ class NegativeBuster(Buster):
 
 
 class GreatPlayerBuster(PositiveBuster):
+    """Бустер, увеличавающий платформу"""
     def bonus(self):
         self.game.player.set_width(Buster.game.player.rect.w * 2)
         pygame.time.set_timer(BUSTERENDEVENT, 10000)
@@ -60,6 +64,7 @@ class GreatPlayerBuster(PositiveBuster):
 
 
 class SpeedBuster(PositiveBuster):
+    """Бустер, ускоряющий платформу"""
     def bonus(self):
         self.game.player.set_player_speed(Buster.game.player.speed * 2)
         pygame.time.set_timer(BUSTERENDEVENT, 10000)
@@ -70,6 +75,7 @@ class SpeedBuster(PositiveBuster):
 
 
 class PowerBuster(PositiveBuster):
+    """Бустер, увеличавающий силу шарика"""
     def bonus(self):
         for ball in Buster.game.balls:
             ball.power = 3
@@ -82,6 +88,7 @@ class PowerBuster(PositiveBuster):
 
 
 class ManyBuster(PositiveBuster):
+    """Бустер, увеличавающий кол-во шариков"""
     def bonus(self):
         Buster.game.buster = None
         Ball(Buster.game.all_sprites, Buster.game.balls, Buster.game.player, Buster.game.blocks, Buster.game)
@@ -89,6 +96,7 @@ class ManyBuster(PositiveBuster):
 
 
 class SmallPlayerBuster(NegativeBuster):
+    """Бустер, уменьшающий платформу"""
     def bonus(self):
         self.game.player.set_width(Buster.game.player.rect.w * 0.5)
         pygame.time.set_timer(BUSTERENDEVENT, 20000)
@@ -99,6 +107,7 @@ class SmallPlayerBuster(NegativeBuster):
 
 
 class SpeedNegativePlayerBuster(NegativeBuster):
+    """Бустер, замедляющий платформу"""
     def bonus(self):
         self.game.player.set_player_speed(Buster.game.player.speed * 0.5)
         pygame.time.set_timer(BUSTERENDEVENT, 10000)
@@ -109,6 +118,7 @@ class SpeedNegativePlayerBuster(NegativeBuster):
 
 
 class HealthBlockBuster(NegativeBuster):
+    """Бустер, восстанавливающий жизни всех шариков"""
     def bonus(self):
         for block in Buster.game.blocks:
             if block.health != -5:
@@ -117,6 +127,7 @@ class HealthBlockBuster(NegativeBuster):
                 Buster.game.buster = None
 
 
+"""Список всех бустеров"""
 busters = [
     GreatPlayerBuster,
     SpeedBuster,

@@ -6,6 +6,7 @@ from Utiles import *
 
 
 class Ball(pygame.sprite.Sprite):
+    """Класс шарика"""
     image = load_image('ball.png')
 
     def __init__(self, all_sprites, balls, player, blocks, game):
@@ -22,18 +23,20 @@ class Ball(pygame.sprite.Sprite):
         self.game = game
 
     def update(self):
+        """При касании нижних границ, шарик уничтожается"""
         if self.rect.y + self.radius * 2 >= HEIGHT:
             for group in self.groups():
                 group.remove(self)
             if len(self.balls) == 0:
                 pygame.time.set_timer(BUSTERENDEVENT, 0)
                 menu.menu()
+        """Отражение шарика от стен"""
         if not 0 < self.rect.x < WIDTH or not 0 < self.rect.x + self.radius * 2 < WIDTH:
             self.vx = -self.vx
         if self.rect.y <= 0:
             self.vy = -self.vy
         self.rect = self.rect.move(self.vx, 0)
-
+        """Столкновение с платформой и блоками"""
         if pygame.sprite.collide_rect(self, self.player):
             self.vy = -self.vy
             self.vx = -self.vx

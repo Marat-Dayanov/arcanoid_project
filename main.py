@@ -10,6 +10,7 @@ from menu import *
 
 
 class Game:
+    """Класс игры"""
     def __init__(self):
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption('Арканоид')
@@ -29,6 +30,7 @@ class Game:
         self.buster = None
 
     def set_level(self, level):
+        """Функция прогрузки уровня"""
         self.iron_count = 0
         for i, row in enumerate(level.level_map):
             for j, el in enumerate(row):
@@ -39,12 +41,14 @@ class Game:
         self.background = level.bg
 
     def buster_clear(self):
+        """Завершение действия бустера"""
         if self.buster is None:
             return
         self.buster.destroy()
         self.buster = None
 
     def clear(self):
+        """Очистка всех спрайтов, при завершении уровня"""
         self.all_sprites = pygame.sprite.Group()
         self.blocks = pygame.sprite.Group()
         self.balls = pygame.sprite.Group()
